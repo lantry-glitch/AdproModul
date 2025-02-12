@@ -16,6 +16,27 @@ public class ProductRepository {
         return product;
     }
 
+    public Product findById(String productId) {
+        return productsData.stream()
+                .filter(product -> product.getProductId().equals(productId))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public void edit(Product editedProduct) {
+        for (int i = 0; i < productsData.size(); i++) {
+            Product product = productsData.get(i);
+            if (product.getProductId().equals(editedProduct.getProductId())) {
+                productsData.set(i, editedProduct);
+                break;
+            }
+        }
+    }
+
+    public void delete(String deletedProductId) {
+        productsData.removeIf(product -> product.getProductId().equals(deletedProductId));
+    }
+
     public Iterator<Product> findAll() {
         return productsData.iterator();
     }
