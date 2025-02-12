@@ -8,7 +8,7 @@ Mengimplementasikan fungsi dengan baik – Sama seperti pemberian nama yang berm
 Menyederhanakan kode – Selama latihan, saya menyadari bahwa beberapa bagian kode yang saya tulis terlalu rumit. Setelah menyederhanakannya, kode menjadi lebih mudah dipahami dan tidak terlalu membebani dengan kompleksitas yang tidak perlu.
 Saya juga menemukan beberapa masalah dalam versi awal kode sebelum mengunggahnya ke GitHub, seperti kesalahan implementasi. Salah satu contohnya adalah saya lupa memperbarui model produk agar secara otomatis menghasilkan Product ID. Kesalahan kecil seperti ini mudah terlewat, tetapi juga mudah diperbaiki. Dari pengalaman ini, saya belajar bahwa selalu waspada terhadap potensi masalah saat mengembangkan fitur itu penting, bahkan sejak tahap perencanaan.
 
-# ---Refleksi 2---
+# ---Reflection 2---
 Setelah menulis unit test, saya semakin memahami bahwa meskipun awalnya saya menganggap unit test tidak terlalu berguna dan lebih memakan waktu dibandingkan pengujian manual, ternyata ada situasi di mana unit testing menjadi jauh lebih efektif.
 
 Untuk kode sederhana seperti yang pernah saya kerjakan dalam kursus sebelumnya (misalnya dalam struktur data dan algoritma), pengujian manual terasa lebih efisien karena ukuran kodenya yang relatif kecil. Namun, dalam proyek yang lebih besar seperti ini, unit testing justru menjadi lebih bermanfaat.
