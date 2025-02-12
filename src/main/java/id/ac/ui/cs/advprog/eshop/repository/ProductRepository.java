@@ -33,6 +33,17 @@ public class ProductRepository {
         }
     }
 
+    public void updateProduct(Product updatedProduct) {
+        String updatedProductId = updatedProduct.getProductId();
+        for (int i = 0; i < productsData.size(); i++) {
+            String currentProductId = productsData.get(i).getProductId();
+            if (currentProductId.equals(updatedProductId)) {
+                productsData.set(i, updatedProduct);
+                break;
+            }
+        }
+    }
+
     public void delete(String deletedProductId) {
         productsData.removeIf(product -> product.getProductId().equals(deletedProductId));
     }
