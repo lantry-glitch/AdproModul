@@ -28,4 +28,13 @@ public class ProductServiceImpl implements ProductService {
         productIterator.forEachRemaining(allProducts::add);
         return allProducts;
     }
+    @Override
+    public Product findById(String productId) {
+        return productRepository.findById(productId);
+    }
+
+    @Override
+    public void edit(Product editedProduct) {
+        productRepository.edit(editedProduct);
+    }
 }
