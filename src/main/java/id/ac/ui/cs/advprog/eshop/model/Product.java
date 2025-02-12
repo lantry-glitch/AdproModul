@@ -15,6 +15,7 @@ public class Product{
     @Min(value = 0,message="quantity cannot be alphabet and must be positive")
     private int productQuantity;
     public Product(){
-        this.productId = UUID.randomUUID().toString();
+        this.productId = UUID.ran
+    domUUID().toString();
     }
 }
