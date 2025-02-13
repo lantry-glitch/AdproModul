@@ -46,7 +46,7 @@ public class DeleteProductFunctionalTest {
 
         driver.get(baseUrl + "/product/list");
 
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS); // add timer for button to appear in 3 second
 
         WebElement deleteButton = driver.findElement(By.xpath("//button[contains(text(),'Delete')]"));
         deleteButton.click();
