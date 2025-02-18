@@ -17,7 +17,7 @@ Setelah menulis unit test, saya semakin memahami bahwa meskipun awalnya saya men
 
 Untuk kode sederhana seperti yang pernah saya kerjakan pada matkul sebelumnya (misalnya dalam SDA), pengujian manual terasa lebih efisien karena ukuran kodenya yang relatif kecil. Namun, dalam proyek yang lebih besar seperti ini, unit testing justru menjadi lebih bermanfaat.
 
-Dengan unit testing, saya dapat lebih mudah memaksimalkan cakupan kode (code coverage). Saya juga merasa bahwa unit test yang saya buat sudah mencakup 100% kode, sehingga seharusnya tidak ada kesalahan ketika kode digunakan secara resmi.
+Dengan unit testing, saya dapat lebih mudah memaksimalkan cakupan kode (code coverage). Saya juga merasa bahwa unit test yang saya buat sudah mencakup 100% kode, sehingga seharusnya tidak ada kesalahan ketika kode digunakan secara resmi. Walaupun begitu, hasil dari 100% code coverage belum tentu menjadikan kode saya terhindar dari bug atau error. Hal ini disebabkan karena bisa saja ada error atau bug yang belum dicakup dalam unit testing.
 
 Jika saya diminta untuk membuat suite pengujian fungsional tambahan guna memverifikasi jumlah item dalam daftar produk, lalu membuat kelas Java baru yang mirip dengan suite pengujian fungsional sebelumnya, maka kualitas kode justru akan menurun. Penyebab utamanya adalah duplikasi kode. Setiap kelas pengujian akan memiliki kode setup yang sama, sehingga jika ada perubahan (misalnya pada logika baseUrl), maka pembaruan harus dilakukan di banyak tempat. Hal ini meningkatkan beban pemeliharaan dan berisiko menimbulkan inkonsistensi di antara suite pengujian.
 
