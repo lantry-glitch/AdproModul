@@ -65,3 +65,7 @@ public class DeleteProductFunctionalTest {
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
     }
 }
+
+
+
+
