@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
@@ -20,33 +20,44 @@ class CreateProductFunctionalTest {
     @LocalServerPort
     private int serverPort;
 
-    @Value("${app.baseURL:http://localhost}")
+    @Value("${app.baseUrl:http://localhost}")
     private String testBaseUrl;
     private String baseUrl;
 
     @BeforeEach
-    void setUp() {
-        baseUrl = String.format("%s:%d", testBaseUrl, serverPort);
+    void setUpTest(){
+        baseUrl = String.format("%s:%d",testBaseUrl,serverPort);
     }
 
     @Test
-    void userCreateAndSeeProduct(ChromeDriver driver) {
+    void pageTitle_isCorrect(ChromeDriver driver){
         driver.get(baseUrl + "/product/create");
+        String pageTitle = driver.getTitle();
 
-        WebElement nameInput = driver.findElement(By.name("productName"));
-        WebElement quantityInput = driver.findElement(By.name("productQuantity"));
+        assertEquals("Create New Product", pageTitle);
+    }
+
+    @Test
+    void createProduct_isCorrect(ChromeDriver driver){
+        driver.get(baseUrl+"/product/create");
+
+        WebElement nameInput = driver.findElement(By.id("nameInput"));
+        WebElement quantityInput = driver.findElement(By.id("quantityInput"));
         WebElement submitButton = driver.findElement(By.tagName("button"));
 
-        nameInput.sendKeys("Dusk Bean");
-        quantityInput.sendKeys("5");
+        nameInput.sendKeys("Dummy Product");
+        quantityInput.sendKeys("100");
         submitButton.click();
 
-        driver.get(baseUrl + "/product/list");
+        String redirectUrl = driver.getCurrentUrl();
+        assert redirectUrl != null;
+        assertTrue(redirectUrl.endsWith("/product/list"));
 
-        WebElement productTable = driver.findElement(By.tagName("table"));
-        String pageSource = productTable.getText();
+        WebElement productNameAdded = driver.findElement(By.xpath("//td[contains(text(),'Dummy Product')]"));
+        WebElement productQuantityAdded = driver.findElement(By.xpath("//td[contains(text(),'100')]"));
 
-        assertTrue(pageSource.contains("Dusk Bean"));
-        assertTrue(pageSource.contains("5"));
+        assertNotNull(productNameAdded);
+        assertNotNull(productQuantityAdded);
+
     }
 }

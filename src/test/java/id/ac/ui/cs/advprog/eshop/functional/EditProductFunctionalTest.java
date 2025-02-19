@@ -29,15 +29,15 @@ public class EditProductFunctionalTest {
     }
 
     @Test
-    void userCreateAndEditProduct(ChromeDriver driver) {
+    void createAndEditProduct_isCorrect(ChromeDriver driver) {
         driver.get(baseUrl + "/product/create");
 
         WebElement nameInput = driver.findElement(By.name("productName"));
         WebElement quantityInput = driver.findElement(By.name("productQuantity"));
         WebElement submitButton = driver.findElement(By.tagName("button"));
 
-        nameInput.sendKeys("Dusk Bean");
-        quantityInput.sendKeys("5");
+        nameInput.sendKeys("Sampo Cap Ing");
+        quantityInput.sendKeys("50");
         submitButton.click();
 
         driver.get(baseUrl + "/product/list");
@@ -50,15 +50,15 @@ public class EditProductFunctionalTest {
         WebElement updateButton = driver.findElement(By.tagName("button"));
 
         nameInput.clear();
-        nameInput.sendKeys("Shu Bean");
+        nameInput.sendKeys("Sampo Cap Sabun");
         quantityInput.clear();
-        quantityInput.sendKeys("10");
+        quantityInput.sendKeys("1000");
         updateButton.click();
 
         WebElement productTable = driver.findElement(By.tagName("table"));
         String pageSource = productTable.getText();
 
-        assertTrue(pageSource.contains("Shu Bean"));
-        assertTrue(pageSource.contains("10"));
+        assertTrue(pageSource.contains("Sampo Cap Sabun"));
+        assertTrue(pageSource.contains("1000"));
     }
 }

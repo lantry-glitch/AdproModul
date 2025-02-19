@@ -74,50 +74,72 @@ public class ProductRepositoryTest {
 
     @Test
     void testEditProduct() {
-        Product originalProduct = new Product();
-        originalProduct.setProductId("b1c73f6a-bb3b-4d67-ae52-8bc6a90e9376");
-        originalProduct.setProductName("Ceobe Honey Biscuit");
-        originalProduct.setProductQuantity(10);
-        productRepository.create(originalProduct);
+        Product product = new Product();
 
-        originalProduct.setProductName("Mumu Water");
-        originalProduct.setProductQuantity(5);
-        productRepository.updateProduct(originalProduct);
+        product.setProductId("keb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setProductName("Sampo Cap Ung");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+        product.setProductName("Sampo Cap Cay");
+        product.setProductQuantity(50);
+        productRepository.edit(product);
 
         Iterator<Product> productIterator = productRepository.findAll();
         assertTrue(productIterator.hasNext());
-        Product updatedProduct = productIterator.next();
+        Product editedProduct = productIterator.next();
 
-        assertEquals(originalProduct.getProductId(), updatedProduct.getProductId());
-        assertEquals(originalProduct.getProductName(), updatedProduct.getProductName());
-        assertEquals(originalProduct.getProductQuantity(), updatedProduct.getProductQuantity());
-
-        assertNotEquals("Ceobe Honey Biscuits", updatedProduct.getProductName());
-        assertNotEquals(10, updatedProduct.getProductQuantity());
+        assertEquals(product.getProductId(), editedProduct.getProductId());
+        assertEquals(product.getProductName(), editedProduct.getProductName());
+        assertEquals(product.getProductQuantity(), editedProduct.getProductQuantity());
     }
 
     @Test
     void testDeleteProduct() {
-        Product productToDelete = new Product();
-        productToDelete.setProductId("b1c73f6a-bb3b-4d67-ae52-8bc6a90e9376");
-        productToDelete.setProductName("Arturia Sock");
-        productToDelete.setProductQuantity(2);
-        productRepository.create(productToDelete);
+        Product product = new Product();
 
-        productRepository.delete(productToDelete.getProductId());
+        product.setProductId("keb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setProductName("Sampo Cap Ing");
+        product.setProductQuantity(10);
+        productRepository.create(product);
+
+        productRepository.delete(product.getProductId());
         Iterator<Product> productIterator = productRepository.findAll();
         assertFalse(productIterator.hasNext());
+    }
 
-        String nonExistentProductId = "a2d6b12f-3e7b-42b4-bf29-7f3f56de51f2";
-        productRepository.delete(nonExistentProductId);
+    @Test
+    void testEditNotFound(){
+        Product product = new Product();
+        product.setProductId("keb558e9f-1c39-460e-8860-71af6af63bd6");
+        productRepository.create(product);
 
-        int finalSize = 0;
-        productIterator = productRepository.findAll();
-        while (productIterator.hasNext()) {
-            finalSize++;
-            productIterator.next();
-        }
+        Product newProduct = new Product();
+        assertFalse(productRepository.edit(newProduct));
+    }
 
-        assertEquals(0, finalSize);
+    @Test
+    void testDeleteNotFound(){
+        Product product = new Product();
+        product.setProductId("keb558e9f-1c39-460e-8860-71af6af63bd6");
+        productRepository.create(product);
+
+        assertFalse(productRepository.delete("id-salah"));
+    }
+
+    @Test
+    void testFindByIdFound(){
+        Product product = new Product();
+        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        productRepository.create(product);
+        assertEquals(product, productRepository.findById("eb558e9f-1c39-460e-8860-71af6af63bd6"));
+    }
+
+    @Test
+    void testFindByIdNotFound(){
+        Product product = new Product();
+        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        productRepository.create(product);
+        assertNotEquals(product, productRepository.findById("id-salah"));
     }
 }

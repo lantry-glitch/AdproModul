@@ -13,19 +13,19 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
-
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @ExtendWith(SeleniumJupiter.class)
-class HomePageFunctionalTest {
+public class HomePageFunctionalTest {
+
     @LocalServerPort
     private int serverPort;
 
-    @Value("${app.baseURL:http://localhost}")
+    @Value("${app.baseUrl:http://localhost}")
     private String testBaseUrl;
     private String baseUrl;
 
     @BeforeEach
-    void setUp() {
+    void setupTest(){
         baseUrl = String.format("%s:%d", testBaseUrl, serverPort);
     }
 
@@ -40,7 +40,9 @@ class HomePageFunctionalTest {
     @Test
     void welcomeMessage_homePage_isCorrect(ChromeDriver driver) throws Exception {
         driver.get(baseUrl);
-        String welcomeMessage = driver.findElement(By.tagName("h3")).getText();
+        String welcomeMessage = driver.findElement(
+                By.tagName("h3")
+        ).getText();
 
         assertEquals("Welcome", welcomeMessage);
     }

@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Iterator;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -22,12 +22,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAll() {
+    public List<Product> findAll(){
         Iterator<Product> productIterator = productRepository.findAll();
-        List<Product> allProducts = new ArrayList<>();
-        productIterator.forEachRemaining(allProducts::add);
-        return allProducts;
+        List<Product> allProduct = new ArrayList<>();
+        productIterator.forEachRemaining(allProduct::add);
+        return allProduct;
     }
+
     @Override
     public Product findById(String productId) {
         return productRepository.findById(productId);
@@ -39,7 +40,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void delete(String deletedProductId) {
-        productRepository.delete(deletedProductId);
+    public boolean delete(String deletedProductId) {
+        return productRepository.delete(deletedProductId);
     }
 }

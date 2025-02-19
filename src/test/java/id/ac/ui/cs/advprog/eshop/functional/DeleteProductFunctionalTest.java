@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -33,20 +34,20 @@ public class DeleteProductFunctionalTest {
     }
 
     @Test
-    void userCreateAndDeleteProduct(ChromeDriver driver) {
+    void createAndDeleteProduct_isCorrect(ChromeDriver driver) {
         driver.get(baseUrl + "/product/create");
 
         WebElement nameInput = driver.findElement(By.name("productName"));
         WebElement quantityInput = driver.findElement(By.name("productQuantity"));
         WebElement submitButton = driver.findElement(By.tagName("button"));
 
-        nameInput.sendKeys("Sacabambaspis");
-        quantityInput.sendKeys("5");
+        nameInput.sendKeys("Sabun Cap Ybara");
+        quantityInput.sendKeys("82");
         submitButton.click();
 
         driver.get(baseUrl + "/product/list");
 
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS); // add timer for button to appear in 3 second
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
 
         WebElement deleteButton = driver.findElement(By.xpath("//button[contains(text(),'Delete')]"));
         deleteButton.click();
@@ -54,18 +55,14 @@ public class DeleteProductFunctionalTest {
         Alert deleteConfirmationAlert = driver.switchTo().alert();
         deleteConfirmationAlert.accept();
 
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 
         WebElement productTable = driver.findElement(By.tagName("table"));
         String pageSource = productTable.getText();
 
-        assertFalse(pageSource.contains("Sacabambaspis"));
-        assertFalse(pageSource.contains("5"));
+        assertFalse(pageSource.contains("Sabun Cap Ybara"));
+        assertFalse(pageSource.contains("82"));
 
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
     }
 }
-
-
-
-
