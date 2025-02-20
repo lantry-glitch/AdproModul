@@ -75,8 +75,6 @@ public class ProductControllerTest {
         product.setProductName("Sampo Cap Sabun");
         product.setProductQuantity(10);
 
-        String json = jsonProduct.write(product).getJson();
-
         mvc.perform(post("/product/edit")
                         .contentType("application/x-www-form-urlencoded")
                         .param("productName", "Sampo Cap Sabun")

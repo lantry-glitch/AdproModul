@@ -23,26 +23,7 @@ public class ProductRepository {
         return product;
     }
 
-//    public boolean edit(Product editedProduct) {
-//        for (int i = 0; i < productData.size(); i++) {
-//            Product product = productData.get(i);
-//            if (product.getProductId().equals(editedProduct.getProductId())) {
-//                productData.set(i, editedProduct);
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-
     public boolean edit(Product productUpdate) {
-//        for (Product product : productData){
-//            if(product.getProductId().equals(productUpdate.getProductId())){
-//                product.setProductName(productUpdate.getProductName());
-//                product.setProductQuantity(productUpdate.getProductQuantity());
-//                return true;
-//            }
-//        }
-//        return false;
         Product existingProduct = findById(productUpdate.getProductId());
         if (existingProduct != null) {
             existingProduct.setProductName(productUpdate.getProductName());
