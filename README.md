@@ -68,7 +68,7 @@ Penerapan Prinsip DIP dapat terlihat dari cara saya menaruh dependensi dengan in
 Secara garis besar, proyek ini sudah mengadopsi tiga dari lima prinsip SOLID (SRP, ISP, dan DIP) dengan cukup baik, meskipun OCP dan LSP belum sepenuhnya diterapkan.
 
 
-Kelebihan Penerapan SOLID:
+2) Kelebihan Penerapan SOLID:
 
 a) Struktur Kode yang Jelas:
 Dengan membagi tanggung jawab setiap komponen secara spesifik, setiap kelas dan antarmuka memiliki fungsi yang terdefinisi dengan baik. Hal ini memudahkan pengembang dalam memahami alur kerja sistem dan mempercepat proses debugging.
@@ -82,7 +82,7 @@ Karena setiap modul dapat diuji secara independen, penulisan unit test menjadi l
 d) Pengurangan Kompleksitas:
 Dengan memisahkan fungsi-fungsi dalam bagian yang lebih kecil dan terfokus, kompleksitas keseluruhan sistem dapat diminimalkan. Hal ini membuat proses pemeliharaan dan pengelolaan kode menjadi lebih efisien.
 
-Kekurangan Jika Tidak Menerapkan SOLID:
+3) Kekurangan Jika Tidak Menerapkan SOLID:
 
 a) Ketergantungan Antar Komponen:
 Tanpa penerapan prinsip SOLID, komponen-komponen dalam kode cenderung saling bergantung sehingga perubahan pada satu bagian dapat menyebabkan dampak yang tidak diinginkan pada bagian lainnya.
