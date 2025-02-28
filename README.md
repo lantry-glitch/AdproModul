@@ -1,5 +1,9 @@
-# AdproModul
+# eShop
 
+# Navigation List
+- [Module 1](#module-1)
+
+## Module 1
 # ---Reflection 1---
 Dalam latihan pertama ini, saya menyadari beberapa hal penting yang perlu diperhatikan untuk menulis kode yang bersih dan menerapkan praktik pengkodean yang aman.
 
@@ -22,3 +26,21 @@ Dengan unit testing, saya dapat lebih mudah memaksimalkan cakupan kode (code cov
 Jika saya diminta untuk membuat suite pengujian fungsional tambahan guna memverifikasi jumlah item dalam daftar produk, lalu membuat kelas Java baru yang mirip dengan suite pengujian fungsional sebelumnya, maka kualitas kode justru akan menurun. Penyebab utamanya adalah duplikasi kode. Setiap kelas pengujian akan memiliki kode setup yang sama, sehingga jika ada perubahan (misalnya pada logika baseUrl), maka pembaruan harus dilakukan di banyak tempat. Hal ini meningkatkan beban pemeliharaan dan berisiko menimbulkan inkonsistensi di antara suite pengujian.
 
 Oleh karena itu, solusi yang lebih baik adalah mengekstrak logika setup yang umum ke dalam kelas dasar (base class) untuk semua pengujian fungsional, sehingga lebih efisien dan mudah dikelola.
+
+## Module 2
+Aplikasi saya udah di-deploy di link ini: https://broad-stephana-lantry-glitch-58569552.koyeb.app/
+
+Beberapa masalah code quality yang saya hadapi di modul kali ini macem-macem, misalnya:
+1. Banyak baris kode yang cuma di-comment tapi belum dihapus.
+2. Ada return redirection ke file di resources yang penamaannya kurang tepat, jadi rawan error atau bug.
+3. Method setUp di unit test yang isinya kosong alias gak ada gunanya.
+
+Cara saya ngatasinnya:
+1. Pastikan baris kode yang cuma di-comment itu udah gak berfungsi lagi di versi push terbaru, terus dihapus dari program.
+2. Misalnya, di controller editProductPage, ada return "editProduct", padahal file HTML yang dituju seharusnya "EditProduct". Ini bikin inkonsistensi. Solusinya simpel, yaitu memastikan semua return pakai format Pascal Case. Selain bikin inkonsistensi, penamaan yang salah juga bisa nyebabin error atau bug, apalagi kalau program dijalankan di Linux yang lebih strict dibanding Windows.
+3. Buat masalah method setUp, sebetulnya ada banyak cara, tapi pilihan yang salah adalah menghapus method setUp karena saya langsung inisialisasi Product di setiap method test.
+
+Menurut saya, workflow CI/CD yang saya implementasi udah sesuai sama definisi Continuous Integration dan Continuous Deployment. Lewat GitHub workflows (pakai GitHub Actions), program saya otomatis ngejalanin testing (dicek pake CI dan divalidasi sama SonarQube) dan di-deploy tiap kali ada push ke repository GitHub (dengan scorecard). Dari sisi CD, saya udah pakai PaaS dari Koyeb. Rangkaian task inilah yang ngebentuk workflow CI/CD saya.
+
+Bonus (code coverage 100%):
+![image](https://github.com/user-attachments/assets/faffc01c-1a4c-4fb3-b18d-8b58563f94c1)
