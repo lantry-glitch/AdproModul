@@ -50,6 +50,7 @@ Bonus (code coverage 100%):
 ## Module 3
 # ---Reflection 1---
 1) Prinsip SOLID yang Diterapkan dalam Proyek
+   
 a) Single Responsibility Principle (SRP):
 Terdapat kesalahan pada kode template yaitu menggabungkan Controller Car ke dalam Product Controller. Hal ini tentu dapat menimbulkan masalah karena banyaknya controller dalam sebuah kelas dan akan mengakibatkan suatu class menjadi kompleks dan sulit dikelola. Untuk itulah, saya sudah menangani kasus ini pada pemisahan CarController dari ProductController. Dalam project ini, tiap kelas dibuat untuk menangani satu fungsi spesifik. Dengan begitu masing-masing kelas akan lebih mudah untuk dipahami dan dikelola lebih lanjut.
 
