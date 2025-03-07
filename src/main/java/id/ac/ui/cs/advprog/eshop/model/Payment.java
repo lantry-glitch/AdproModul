@@ -13,7 +13,7 @@ public class Payment {
     String status;
     Map<String, String> paymentData;
 
-    Payment(String id, String method, Map<String, String> paymentData) {
+    public Payment(String id, String method, Map<String, String> paymentData) {
         this.id = id;
         this.method = method;
         this.status = PaymentStatus.REJECTED.getValue();
@@ -26,7 +26,7 @@ public class Payment {
         }
     }
 
-    Payment(String id, String method, String status, Map<String, String> paymentData) {
+    public Payment(String id, String method, String status, Map<String, String> paymentData) {
         this.id = id;
         this.method = method;
         this.setStatus(status);
