@@ -15,27 +15,27 @@ public class Payment {
 
     public Payment(String id, String method, Map<String, String> paymentData) {
         this.id = id;
-        this.method = method;
+        this.setMethod(method);
         this.status = PaymentStatus.REJECTED.getValue();
 
         if (paymentData == null) {
             throw new IllegalArgumentException();
         }
         else {
-            this.paymentData = paymentData;
+            this.setPaymentData(paymentData);
         }
     }
 
     public Payment(String id, String method, String status, Map<String, String> paymentData) {
         this.id = id;
-        this.method = method;
+        this.setMethod(method);
         this.setStatus(status);
 
         if (paymentData == null) {
             throw new IllegalArgumentException();
         }
         else {
-            this.paymentData = paymentData;
+            this.setPaymentData(paymentData);
         }
     }
 
@@ -46,5 +46,51 @@ public class Payment {
         else {
             throw new IllegalArgumentException();
         }
+    }
+    public void setMethod(String method) {
+        String[] paymentMethod = {"VOUCHER"};
+        if (Arrays.asList(paymentMethod).contains(method)) {
+            this.method = method;
+        }
+        else {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    public void setPaymentData(Map<String, String> paymentData) {
+        this.paymentData = paymentData;
+        if (this.method.equals("VOUCHER")) {
+            if (!paymentData.containsKey("voucherCode")) {
+                this.status = PaymentStatus.REJECTED.getValue();
+            }
+            else {
+                String voucherCode = paymentData.get("voucherCode");
+                if (!voucherCodeIsValid(voucherCode)) {
+                    this.status = PaymentStatus.REJECTED.getValue();
+                }
+                else {
+                    this.status = PaymentStatus.SUCCESS.getValue();
+                }
+            }
+        }
+    }
+
+    private boolean voucherCodeIsValid(String voucherCode) {
+        if (voucherCode.length() != 16) {
+            return false;
+        }
+        else if (!voucherCode.startsWith("ESHOP")) {
+            return false;
+        }
+        int numCount = 0;
+        for (int i = 0; i < voucherCode.length(); i++) {
+            if (Character.isDigit(voucherCode.charAt(i))) {
+                numCount++;
+            }
+        }
+        if (numCount != 8) {
+            return false;
+        }
+        return true;
     }
 }
