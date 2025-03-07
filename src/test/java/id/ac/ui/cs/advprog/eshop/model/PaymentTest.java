@@ -46,7 +46,7 @@ public class PaymentTest {
     @Test
     void testCreatePaymentDefaultStatus() {
         Payment payment = new Payment(order.getId(), "VOUCHER", paymentData);
-        assertEquals("REJECTED", payment.getStatus());
+        assertEquals("WAITING", payment.getStatus());
     }
 
     @Test
@@ -70,7 +70,7 @@ public class PaymentTest {
 
     @Test
     void testSetPaymentStatusInvalid() {
-        Payment payment = new Payment(order.getId(), "VOUCHER", paymentData);
+        Payment payment = new Payment(order.getId(), "VOUCHER", "MEOW", paymentData);
         assertThrows(IllegalArgumentException.class, () -> payment.setStatus("CANCELLED"));
     }
 }
