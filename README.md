@@ -1,4 +1,6 @@
 # eShop
+- Nama : Allan Kwek
+- NPM : 2306152134
 
 # Navigation List
 - [Module 1](#module-1)
