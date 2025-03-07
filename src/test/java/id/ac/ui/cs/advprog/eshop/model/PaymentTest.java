@@ -118,4 +118,31 @@ public class PaymentTest {
         Payment payment = new Payment(order.getId(), PaymentMethod.VOUCHER.getValue(), paymentData);
         assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
     }
+    @Test
+    void testCreateBankTransferPaymentValid() {
+        paymentData.clear();
+        paymentData.put("bankName", "BRI");
+        paymentData.put("referenceCode", "A12345678XXX");
+
+        Payment payment = new Payment(order.getId(), "BANKTRANSFER", paymentData);
+        assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
+    }
+
+    @Test
+    void testCreateBankTransferPaymentNoBankName() {
+        paymentData.clear();
+        paymentData.put("referenceCode", "A12345678XXX");
+
+        Payment payment = new Payment(order.getId(), "BANKTRANSFER", paymentData);
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
+    }
+
+    @Test
+    void testCreateBankTransferPaymentNoReferenceCode() {
+        paymentData.clear();
+        paymentData.put("bankName", "BRI");
+
+        Payment payment = new Payment(order.getId(), "BANKTRANSFER", paymentData);
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
+    }
 }
