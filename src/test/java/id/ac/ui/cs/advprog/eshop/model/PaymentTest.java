@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.openqa.selenium.InvalidArgumentException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -36,6 +37,7 @@ public class PaymentTest {
         order = new Order("order-2025", this.products, 1710000000L, "Alice");
 
         paymentData = new HashMap<>();
+        paymentData.put("voucherCode", "ESHOP1234ABC5678");
     }
 
     @Test
@@ -47,7 +49,7 @@ public class PaymentTest {
     @Test
     void testCreatePaymentDefaultStatus() {
         Payment payment = new Payment(order.getId(), "VOUCHER", paymentData);
-        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
     }
 
     @Test
@@ -73,5 +75,45 @@ public class PaymentTest {
     void testSetPaymentStatusInvalid() {
         Payment payment = new Payment(order.getId(), "VOUCHER", "MEOW", paymentData);
         assertThrows(IllegalArgumentException.class, () -> payment.setStatus("CANCELLED"));
+    }
+    @Test
+    void testCreatePaymentInvalidMethod() {
+        assertThrows(IllegalArgumentException.class, () -> new Payment(order.getId(),
+                "FIREFLY", paymentData));
+    }
+
+    @Test
+    void testCreateVoucherPaymentEmptyData() {
+        paymentData.clear();
+
+        Payment payment = new Payment(order.getId(), "VOUCHER", paymentData);
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
+    }
+
+    @Test
+    void testCreateVoucherPaymentNot16Characters() {
+        paymentData.clear();
+        paymentData.put("voucherCode", "ESHOPFIREFLY12345678");
+
+        Payment payment = new Payment(order.getId(), "VOUCHER", paymentData);
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
+    }
+
+    @Test
+    void testCreateVoucherPaymentNot8Numbers() {
+        paymentData.clear();
+        paymentData.put("voucherCode", "ESHOP1234ABCDE78");
+
+        Payment payment = new Payment(order.getId(), "VOUCHER", paymentData);
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
+    }
+
+    @Test
+    void testCreateVoucherPaymentNotStartWithEshop() {
+        paymentData.clear();
+        paymentData.put("voucherCode", "DSHIP1234ABC5678");
+
+        Payment payment = new Payment(order.getId(), "VOUCHER", paymentData);
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
     }
 }
