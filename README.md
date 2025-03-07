@@ -1,9 +1,12 @@
 # eShop
+- Nama : Allan Kwek
+- NPM : 2306152134
 
 # Navigation List
 - [Module 1](#module-1)
 - [Module 2](#module-2)
 - [Module 3](#module-3)
+- [Module 4](#module-4)
 
 ## Module 1
 # ---Reflection 1---
@@ -96,3 +99,28 @@ Kode yang tidak terstruktur dengan baik biasanya sulit untuk diikuti, terutama b
 
 d) Skalabilitas yang Terbatas:
 Ketika fitur baru perlu ditambahkan, sistem yang tidak mengikuti prinsip SOLID sering kali memerlukan penulisan ulang yang signifikan. Hal ini menghambat kemampuan aplikasi untuk berkembang seiring dengan peningkatan kebutuhan dan kompleksitas proyek.
+
+## Module 4
+# ---Reflection 1---
+  1) Menurut Percival, pengujian harus menjamin tiga aspek utama yang saling mendukung dalam pengembangan perangkat lunak. Berdasarkan pengalaman saya, berikut penjelasan masing-masing tujuan:
+
+a) Kebenaran (Correctness)
+Pengujian unit dan fungsional yang saya terapkan mengonfirmasi bahwa aplikasi web beroperasi dengan benar ketika semua test berhasil. Di sisi lain, jika terdapat kegagalan test, itu menjadi sinyal bahwa kode perlu diperbaiki. Dengan demikian, hasil test secara langsung mencerminkan validitas aplikasi yang sedang dikembangkan.
+
+b) Kemudahan Pemeliharaan (Maintainability)
+Dulu, saya merasa ragu melakukan refactoring karena takut merusak test atau fitur yang ada. Namun, setelah menerapkan TDD selama satu minggu, saya mendapati bahwa proses refactoring berjalan tanpa hambatan. Hal ini menunjukkan bahwa test yang disusun dengan baik dapat menjaga stabilitas dan memudahkan pemeliharaan kode secara keseluruhan.
+
+c) Alur Kerja yang Produktif (Productive Workflow)
+Test yang cepat dan efisien sangat membantu dalam alur kerja pengembangan. Saya terbiasa menjalankan test setiap kali ada perubahan kode agar bisa langsung tahu jika ada bug. Untungnya, IDE seperti IntelliJ memungkinkan saya menjalankan test tertentu saja, jadi saya tidak perlu menjalankan semuanya dan bisa lebih hemat waktu.
+
+  2) Selain itu, dalam pembuatan test, prinsip F.I.R.S.T. menjadi panduan yang sangat berguna. Lima prinsip tersebut adalah:
+a) Cepat (Fast)
+Test harus bisa dijalankan dengan cepat agar tidak menghambat proses pengembangan. Dengan menggunakan teknik mock, saya bisa menjalankan unit test dalam waktu kurang dari dua detik, sehingga tidak perlu menunggu lama untuk melihat hasilnya.
+b) Terpisah/Independen (Isolated/Independent)
+Setiap test harus berdiri sendiri, artinya perubahan pada satu test tidak boleh mempengaruhi test lainnya. Untuk memastikan hal ini, saya selalu menggunakan metode `setUp()` sebelum test dijalankan agar setiap pengujian dimulai dari kondisi yang sama.
+c) Dapat Diulang (Repeatable)
+Test yang saya buat selalu memberikan hasil yang sama setiap kali dijalankan, tidak peduli berapa kali pengujian dilakukan. Ini bisa terjadi karena saya menggunakan mocking, sehingga tidak ada faktor eksternal yang mempengaruhi hasil test.
+d) Validasi Mandiri (Self-Validating)
+Test harus bisa langsung menunjukkan apakah kode berjalan dengan benar atau tidak tanpa perlu dicek secara manual. Oleh karena itu, saya hanya menggunakan assertion, bukan print statement, untuk memastikan hasil test bisa langsung divalidasi oleh sistem.
+e) Menyeluruh dan Tepat Waktu (Thorough/Timely)
+Saya berusaha membuat test yang mencakup sebanyak mungkin skenario, termasuk edge case yang mungkin terjadi. Meskipun tidak semua skenario bisa diuji, code coverage yang tinggi memastikan sebagian besar kode sudah diuji dengan baik.
