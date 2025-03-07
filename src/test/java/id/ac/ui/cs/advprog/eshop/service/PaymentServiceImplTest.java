@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.eshop.service;
 
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 import id.ac.ui.cs.advprog.eshop.enums.OrderStatus;
 import id.ac.ui.cs.advprog.eshop.model.Order;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
@@ -45,9 +46,9 @@ public class PaymentServiceImplTest {
         orders.add(order2);
 
         payments = new ArrayList<>();
-        Payment payment1 = new Payment(order1.getId(), "VOUCHER", new HashMap<>());
+        Payment payment1 = new Payment(order1.getId(), PaymentMethod.VOUCHER.getValue(), new HashMap<>());
         payments.add(payment1);
-        Payment payment2 = new Payment(order2.getId(), "VOUCHER", new HashMap<>());
+        Payment payment2 = new Payment(order2.getId(), PaymentMethod.VOUCHER.getValue(), new HashMap<>());
         payments.add(payment2);
     }
 
@@ -56,7 +57,7 @@ public class PaymentServiceImplTest {
         Payment payment = payments.get(0);
         doReturn(null).when(paymentRepository).findById(payment.getId());
 
-        Payment result = paymentService.addPayment(orders.get(0), "VOUCHER", new HashMap<>());
+        Payment result = paymentService.addPayment(orders.get(0), PaymentMethod.VOUCHER.getValue(), new HashMap<>());
         verify(paymentRepository, times(1)).add(any(Payment.class));
         assertEquals(payment.getId(), result.getId());
     }
@@ -66,7 +67,7 @@ public class PaymentServiceImplTest {
         Payment payment = payments.get(0);
         doReturn(payment).when(paymentRepository).findById(payment.getId());
 
-        assertNull(paymentService.addPayment(orders.get(0), "VOUCHER", new HashMap<>()));
+        assertNull(paymentService.addPayment(orders.get(0), PaymentMethod.VOUCHER.getValue(), new HashMap<>()));
         verify(paymentRepository, times(0)).add(payment);
     }
 
@@ -80,7 +81,7 @@ public class PaymentServiceImplTest {
 
     @Test
     void testUpdateStatusInvalidId(){
-        Payment payment = new Payment("Tribios", "VOUCHER", new HashMap<>());
+        Payment payment = new Payment("Tribios", PaymentMethod.VOUCHER.getValue(), new HashMap<>());
 
         assertThrows(NoSuchElementException.class, () -> paymentService.setStatus(payment, OrderStatus.SUCCESS.getValue()));
         verify(paymentRepository, times(0)).update(any(Payment.class));

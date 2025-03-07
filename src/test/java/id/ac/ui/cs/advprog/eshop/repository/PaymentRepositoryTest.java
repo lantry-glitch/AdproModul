@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.eshop.repository;
 
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import id.ac.ui.cs.advprog.eshop.model.Order;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
@@ -43,11 +44,11 @@ public class PaymentRepositoryTest {
 
         payments = new ArrayList<>();
         Map<String, String> paymentData = new HashMap<>();
-        Payment payment1 = new Payment(order1.getId(), "VOUCHER", paymentData);
+        Payment payment1 = new Payment(order1.getId(), PaymentMethod.VOUCHER.getValue(), paymentData);
         payments.add(payment1);
-        Payment payment2 = new Payment(order2.getId(), "VOUCHER", paymentData);
+        Payment payment2 = new Payment(order2.getId(), PaymentMethod.VOUCHER.getValue(), paymentData);
         payments.add(payment2);
-        Payment payment3 = new Payment(order3.getId(), "VOUCHER", paymentData);
+        Payment payment3 = new Payment(order3.getId(), PaymentMethod.VOUCHER.getValue(), paymentData);
         payments.add(payment3);
     }
 

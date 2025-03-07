@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.eshop.model;
 import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,37 +44,38 @@ public class PaymentTest {
     @Test
     void testCreatePaymentEmptyData() {
         assertThrows(IllegalArgumentException.class, () -> new Payment(order.getId(),
-                "VOUCHER", null));
+                PaymentMethod.VOUCHER.getValue(), null));
     }
 
     @Test
     void testCreatePaymentDefaultStatus() {
-        Payment payment = new Payment(order.getId(), "VOUCHER", paymentData);
+        Payment payment = new Payment(order.getId(), PaymentMethod.VOUCHER.getValue(), paymentData);
         assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
     }
 
     @Test
     void testCreatePaymentSuccessStatus() {
-        Payment payment = new Payment(order.getId(), "VOUCHER", PaymentStatus.SUCCESS.getValue(), paymentData);
+        Payment payment = new Payment(order.getId(), PaymentMethod.VOUCHER.getValue(),
+                PaymentStatus.SUCCESS.getValue(), paymentData);
         assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
     }
 
     @Test
     void testCreatePaymentInvalidStatus() {
         assertThrows(IllegalArgumentException.class, () -> new Payment(order.getId(),
-                "VOUCHER", "CANCELLED", paymentData));
+                PaymentMethod.VOUCHER.getValue(), "CANCELLED", paymentData));
     }
 
     @Test
     void testSetPaymentStatusSuccess() {
-        Payment payment = new Payment(order.getId(), "VOUCHER", paymentData);
+        Payment payment = new Payment(order.getId(), PaymentMethod.VOUCHER.getValue(), paymentData);
         payment.setStatus(PaymentStatus.SUCCESS.getValue());
         assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
     }
 
     @Test
     void testSetPaymentStatusInvalid() {
-        Payment payment = new Payment(order.getId(), "VOUCHER", "MEOW", paymentData);
+        Payment payment = new Payment(order.getId(), PaymentMethod.VOUCHER.getValue(),"MEOW", paymentData);
         assertThrows(IllegalArgumentException.class, () -> payment.setStatus("CANCELLED"));
     }
     @Test
@@ -86,7 +88,7 @@ public class PaymentTest {
     void testCreateVoucherPaymentEmptyData() {
         paymentData.clear();
 
-        Payment payment = new Payment(order.getId(), "VOUCHER", paymentData);
+        Payment payment = new Payment(order.getId(), PaymentMethod.VOUCHER.getValue(), paymentData);
         assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
     }
 
@@ -95,7 +97,7 @@ public class PaymentTest {
         paymentData.clear();
         paymentData.put("voucherCode", "ESHOPFIREFLY12345678");
 
-        Payment payment = new Payment(order.getId(), "VOUCHER", paymentData);
+        Payment payment = new Payment(order.getId(), PaymentMethod.VOUCHER.getValue(), paymentData);
         assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
     }
 
@@ -104,7 +106,7 @@ public class PaymentTest {
         paymentData.clear();
         paymentData.put("voucherCode", "ESHOP1234ABCDE78");
 
-        Payment payment = new Payment(order.getId(), "VOUCHER", paymentData);
+        Payment payment = new Payment(order.getId(), PaymentMethod.VOUCHER.getValue(), paymentData);
         assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
     }
 
@@ -113,7 +115,7 @@ public class PaymentTest {
         paymentData.clear();
         paymentData.put("voucherCode", "DSHIP1234ABC5678");
 
-        Payment payment = new Payment(order.getId(), "VOUCHER", paymentData);
+        Payment payment = new Payment(order.getId(), PaymentMethod.VOUCHER.getValue(), paymentData);
         assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
     }
 }
