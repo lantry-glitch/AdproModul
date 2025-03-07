@@ -18,7 +18,8 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public Payment addPayment(Order order, String method, Map<String, String> paymentData) {
         Payment payment = new Payment(order.getId(), method, paymentData);
-        if (paymentRepository.findById(payment.getId()) == null) {
+        boolean paymentExists = paymentRepository.findById(payment.getId()) != null;
+        if (!paymentExists) {
             paymentRepository.add(payment);
             return payment;
         }
@@ -28,7 +29,8 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public Payment setStatus(Payment payment, String status) {
         payment.setStatus(status);
-        if (paymentRepository.findById(payment.getId()) == null) {
+        boolean paymentExists = paymentRepository.findById(payment.getId()) != null;
+        if (!paymentExists) {
             throw new NoSuchElementException();
         }
         paymentRepository.update(payment);
